@@ -13,7 +13,7 @@ class ApiKeyMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $apiKey = $request->header('x-api-key');
-        // $apiKey = "UNczG3fXti0IOh94KtR3YTXTQ2xlxZh9TwukCu4U";
+        $apiKey = "UNczG3fXti0IOh94KtR3YTXTQ2xlxZh9TwukCu4U";
 
         if (!$apiKey) {
             return response()->json(['message' => 'API key is missing'], 400);
