@@ -1,6 +1,6 @@
 # Installation
 
-``
+```
 git clone <project>
 cp .env.example .env
 compléter le .env
@@ -10,9 +10,9 @@ php artisan migrate
 php artisan db:seed
 npm run dev 
 php artisan serve
-``
+```
 
 # Routes
-/
-/dashboard
-/apiKeys
+- /
+- /dashboard
+- /apiKeys
