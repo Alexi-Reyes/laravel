@@ -34,13 +34,24 @@ Route::prefix('/')->name('tracks.')->group(function () {
     });
 });
 
-Route::prefix('/apiKeys')->name('apiKeys.')->group(function () {
-    Route::get('/', [ApiKeyController::class, 'index'])->middleware('auth')->name('index');
+Route::prefix('/playlists')->name('playlists.')->group(function () {
+    Route::get('/', [PlaylistController::class, 'index'])->name('index');
 
     Route::middleware(['auth', IsAdmin::class])->group(function () {
+        Route::get('create', [PlaylistController::class, 'create'])->name('create');
+        Route::post('/', [PlaylistController::class, 'store'])->name('store');
+        Route::get('{playlist}', [PlaylistController::class, 'show'])->name('show');
+        Route::get('{playlist}/edit', [PlaylistController::class, 'edit'])->name('edit');
+        Route::put('{playlist}', [PlaylistController::class, 'update'])->name('update');
+        Route::delete('{playlist}', [PlaylistController::class, 'destroy'])->name('destroy');
+    });
+});
+
+Route::prefix('/apiKeys')->name('apiKeys.')->group(function () {
+    Route::middleware(['auth', IsAdmin::class])->group(function () {
+        Route::get('/', [ApiKeyController::class, 'index'])->name('index');
         Route::get('create', [ApiKeyController::class, 'create'])->name('create');
         Route::post('/', [ApiKeyController::class, 'store'])->name('store');
         Route::delete('{apiKey}', [ApiKeyController::class, 'destroy'])->name('destroy');
     });
 });
-

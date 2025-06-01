@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlaylistRequest;
+use App\Models\ApiKey;
 use App\Models\Playlist;
 use App\Models\Track;
 use Illuminate\Http\Request;
@@ -19,9 +20,15 @@ class PlaylistController extends Controller
     public function index()
     {
         $playlists = Playlist::withCount('tracks')->get();
+        $apiKey = null;
+        if (Auth::check()) {
+            $user = Auth::user();
+            $apiKey = ApiKey::where('user_id', $user->id)->first();
+        }
 
         return Inertia::render('Playlist/Index', [
             'playlists' => $playlists,
+            'apiKey' => $apiKey ? $apiKey->key : null,
         ]);
     }
 

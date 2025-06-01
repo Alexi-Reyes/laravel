@@ -23,7 +23,7 @@
             |
             <Link :href="route('playlists.show', { playlist: playlist })">Voir</Link>
             |
-            <Link :href="route('playlists.destroy', { playlist: playlist })" method="delete" as="button">Supprimer</Link>
+            <Link :href="route('playlists.destroy', { playlist: playlist, apiKey: apiKey })" method="delete" as="button">Supprimer</Link>
           </li>
         </ul>
       </div>
@@ -31,19 +31,20 @@
   </MusicLayout>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import MusicLayout from '@/layouts/MusicLayout.vue';
-import { ref, onMounted } from 'vue';
-import { Playlist } from '@/types/index'; // Assuming Playlist type is in index.d.ts
 
-const playlists = ref<Playlist[]>([]);
-
-onMounted(async () => {
-  try {
+export default {
+  name: 'Index',
+  components: {
+    Head,
+    MusicLayout,
+    Link,
   },
   props: {
     playlists: Array,
+    apiKey: String,
   },
 }
 </script>
